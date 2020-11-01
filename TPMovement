@@ -3,7 +3,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class ThirdPersonController : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     public float Speed;
     public float JumpForce = 600;
