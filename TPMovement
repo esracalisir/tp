@@ -1,4 +1,4 @@
-//ESRA ÇALIŞIR
+// Developed by ESRA ÇALIŞIR
 
 using UnityEngine;
 
@@ -15,8 +15,6 @@ public class ThirdPersonController : MonoBehaviour
     private Rigidbody rb;
     private CapsuleCollider playerCol;
     private float speed = 100f;
-    private PlayerHealth player;
-    public HoldProgress taking;
 
 
     void Start()
@@ -26,15 +24,11 @@ public class ThirdPersonController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerCol = GetComponent<CapsuleCollider>();
         cam = Camera.main;
-        player = GetComponent<PlayerHealth>();
     }
 
     void Update()
     {
-        if (player.currentHealth > 0)
-        {
-            if (taking.counter == 0)
-            {
+    
                 bool runPressed = Input.GetKey("left shift");
 
                 //movement
@@ -57,19 +51,18 @@ public class ThirdPersonController : MonoBehaviour
                 {
                     rb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
                 }
-            }
+         
 
-            //rotation
+                //rotation
            
-            float yRot = Input.GetAxisRaw("Mouse X") * xSensitivity;
-            float xRot = Input.GetAxisRaw("Mouse Y") * ySensitivity;
-            float x_cam_rot = cam.transform.eulerAngles.x;
-            float camEulerAnglesX = cam.transform.localEulerAngles.x;
-            rb.rotation *= Quaternion.Euler(0, yRot * Time.deltaTime, 0);
-            x_cam_rot -= xRot;
-            camEulerAnglesX -= xRot;
-            cam.transform.localEulerAngles = new Vector3(camEulerAnglesX, 0, 0);
-        }
+               float yRot = Input.GetAxisRaw("Mouse X") * xSensitivity;
+               float xRot = Input.GetAxisRaw("Mouse Y") * ySensitivity;
+               float x_cam_rot = cam.transform.eulerAngles.x;
+               float camEulerAnglesX = cam.transform.localEulerAngles.x;
+               rb.rotation *= Quaternion.Euler(0, yRot * Time.deltaTime, 0);
+               x_cam_rot -= xRot;
+               camEulerAnglesX -= xRot;
+               cam.transform.localEulerAngles = new Vector3(camEulerAnglesX, 0, 0);
     }
 
     private bool IsGround()
