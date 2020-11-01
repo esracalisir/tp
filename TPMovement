@@ -3,7 +3,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Movement : MonoBehaviour
+public class TPMovement : MonoBehaviour
 {
     public float Speed;
     public float JumpForce = 600;
@@ -28,10 +28,10 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-    
                 bool runPressed = Input.GetKey("left shift");
 
                 //movement
+                
                 Vector2 xMov = new Vector2(Input.GetAxisRaw("Horizontal") * transform.right.x, Input.GetAxisRaw("Horizontal") * transform.right.z);
                 Vector2 zMov = new Vector2(Input.GetAxisRaw("Vertical") * transform.forward.x, Input.GetAxisRaw("Vertical") * transform.forward.z);
 
@@ -43,26 +43,24 @@ public class Movement : MonoBehaviour
                 Vector2 velocity = (xMov + zMov).normalized * speed * Time.deltaTime;
                 rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.y);
 
-
-
                 //jumping
 
                 if (IsGround() && Input.GetKey("space"))
                 {
                     rb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
                 }
-         
-
+      
                 //rotation
-           
-               float yRot = Input.GetAxisRaw("Mouse X") * xSensitivity;
-               float xRot = Input.GetAxisRaw("Mouse Y") * ySensitivity;
-               float x_cam_rot = cam.transform.eulerAngles.x;
-               float camEulerAnglesX = cam.transform.localEulerAngles.x;
-               rb.rotation *= Quaternion.Euler(0, yRot * Time.deltaTime, 0);
-               x_cam_rot -= xRot;
-               camEulerAnglesX -= xRot;
-               cam.transform.localEulerAngles = new Vector3(camEulerAnglesX, 0, 0);
+                
+                float yRot = Input.GetAxisRaw("Mouse X") * xSensitivity;
+                float xRot = Input.GetAxisRaw("Mouse Y") * ySensitivity;
+                float x_cam_rot = cam.transform.eulerAngles.x;
+                float camEulerAnglesX = cam.transform.localEulerAngles.x;
+                rb.rotation *= Quaternion.Euler(0, yRot * Time.deltaTime, 0);
+                x_cam_rot -= xRot;
+                camEulerAnglesX -= xRot;
+                cam.transform.localEulerAngles = new Vector3(camEulerAnglesX, 0, 0);
+                
     }
 
     private bool IsGround()
